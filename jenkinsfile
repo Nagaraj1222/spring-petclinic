@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('clone') {
+            steps {
+                git branch: 'feature/2026.02.06', url: 'git@github.com:Nagaraj1222/spring-petclinic.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('test results report') {
+            steps {
+               junit 'target/surefire-reports/*.xml'
+            }
+        }
+        stage('artifacts') {
+            steps {
+               archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+            }
+        }
+        stage('deploy') {
+            steps {
+               echo 'Hare Krishna'
+            }
+        }
+    }
+}
