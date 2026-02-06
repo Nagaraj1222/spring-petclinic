@@ -1,0 +1,20 @@
+node {
+    stage ('clone') {
+        git branch: 'feature/2026.02.05', url: 'git@github.com:Nagaraj1222/spring-petclinic.git'
+    }
+    stage ('build') {
+        sh 'mvn package'
+    }
+    stage ('test') {
+        sh 'mvn test'    
+    }
+    stage ('test results report') {
+        junit 'target/surefire-reports/*.xml'    
+    }
+    stage('artifacts') {
+        archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+    }
+    stage('deploy') {
+    echo 'Hare Krishna'
+    }
+}     
