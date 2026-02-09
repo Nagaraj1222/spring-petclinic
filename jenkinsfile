@@ -1,35 +1,40 @@
-pipeline {
-    agent any
-    stages {
-        stage('clone') {
-            steps {
-                git branch: 'feature/2026.02.06', url: 'git@github.com:Nagaraj1222/spring-petclinic.git'
-            }
-        }
-        stage('build') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('test results report') {
-            steps {
-               junit 'target/surefire-reports/*.xml'
-            }
-        }
-        stage('artifacts') {
-            steps {
-               archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
-            }
-        }
-        stage('deploy') {
-            steps {
-               echo 'Hare Krishna'
-            }
-        }
-    }
+pipeline
+{
+agent any
+tools{
+maven 'maven'
+}
+stages{
+stage('Git checkout'){
+steps{
+git branch: 'feature/2025.03.10', url: 'https://github.com/parasa7358/onlinebookstore.git'
+}
+}
+stage('clean and install'){
+steps{
+sh 'mvn clean install'
+}
+}
+stage('Package'){
+steps{
+sh 'mvn package'
+}
+}
+stage('Archive the Artifacts'){
+steps{
+sh 'mvn clean install'
+}
+post{
+success{
+archiveArtifacts artifacts: '**target/*.war'
+}
+}
+}
+
+stage('Test Cases'){
+steps{
+sh 'mvn test'
+}
+}
+}
 }
