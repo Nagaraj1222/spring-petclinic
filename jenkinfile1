@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('clone') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+         stage('test results') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('artifacts') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
